@@ -32,7 +32,7 @@
     </div>
 </div>
 <hr>
-{% for alert in alerts reversed %}
+{% for alert in alerts %}
 <div class="alert alert-{{alert.color}} text-center">
     <a>{{alert|safe}}</a><br>
     <span style="font-size: x-small;">{{alert.time_stamp}}</span>

@@ -46,6 +46,9 @@ class Alerts(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     color = models.CharField(max_length=10, choices=COLOR)
 
+    class Meta:
+        ordering = ['-time_stamp']
+
     def __str__(self):
         return self.alert
     

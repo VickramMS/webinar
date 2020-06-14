@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for message in messages %}
+  {% if message.tags == 'success' %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+  {% endif %}
+{% endfor %}
+<div class="container">
+    <div class="card p-5">
+        {% if request.user.is_superuser %}
+        <div>
+            <a href="{% url 'editschedules' %}" class="btn btn-outline-secondary float-right text-dark"><i class="fa fa-pencil mr-2"></i>Edit Links</a>
+            <a href="{% url 'editalerts' %}" class="btn btn-outline-secondary float-right text-dark mr-2"><i class="fa fa-pencil mr-2"></i>Edit Alerts</a>
+        </div>          
+        {% endif %}
+        {% for x in schedules %}
+        <div class="p-2">
+            <label for="link1">{{x}}</label>
+            <textarea onclick="copy('{{forloop.counter}}')" id="copy-{{forloop.counter}}" data-toggle="tooltip"
+                data-placement="right" title="<em>Click to copy...</em>" data-html=true class="form-control"
+                readonly>{{x.link}}</textarea>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+{% for alert in alerts reversed %}
+<div class="alert alert-{{alert.color}} text-center">
+    <a>{{alert|safe}}</a><br>
+    <span style="font-size: x-small;">{{alert.time_stamp}}</span>
+</div>
+{% endfor %}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    function copy(val) {
+        var copyText = document.getElementById("copy-" + val);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+    }
+</script>
+{% endblock content %}

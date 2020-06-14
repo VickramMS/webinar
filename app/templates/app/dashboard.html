@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row m-0 text-center">
+    <div class="col card m-1 p-4">
+        <span style="color: blue;">Total Student Enrollment</span>
+        <h1>{{students.count}}</h1>
+    </div>
+    <div class="col card m-1 p-4">
+        <span style="color: orangered;">Total Faculty Enrollment</span>
+        <h1>{{faculty.count}}</h1>
+
+    </div>
+    <div class="col card m-1 p-4">
+        <span style="color: green;">Total Enrollment</span>
+        <h1>{{objects.count}}</h1>
+    </div>
+</div>
+</div>
+<hr>
+<div class="text-center">
+    <a onclick="overall()" id="overall" class="btn btn-primary text-white">Get Overall Report</a>
+    <a href="{% url 'report' %}" id="overall" class="btn btn-primary text-white">Get Individual Report</a>
+</div>
+<hr>
+<div id="container" class="container bg-light text-center">
+    <div class="pt-5">
+        <h1>Government College of Engineering, Bodinayakkanur</h1>
+        <span>Department of Computer Science and Engineering</span>
+        <h4 class="mt-2">Webinar Participants</h4>
+    </div>
+    <span class="float-right m-3"><b>Total count: </b>{{objects.count}}</span>
+    <div id="area" class="table-responsive">
+        <table id="table" class="table table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Unique code</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Webinar</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">College</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in objects %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{obj.name}}</td>
+                    <td><a href="">{{obj.uqno}}</a></td>
+                    <td>{{obj.email}}</td>
+                    <td>{{obj.webinar}}</td>
+                    <td>{{obj.mobile}}</td>
+                    <td>{{obj.desg}}</td>
+                    <td>{{obj.college}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+</div>
+<script>
+    function overall() {
+        html2canvas(document.querySelector("#table"), {
+            scale: 5
+        }).then(canvas => {
+            document.getElementById("area").hidden = true;
+            document.getElementById("container").appendChild(canvas);
+        });
+    }
+</script>
+{% endblock content %}

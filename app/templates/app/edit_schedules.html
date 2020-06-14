@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card p-5">
+        <form action="{% url 'editschedules' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="count" value="{{schedules.count}}">
+            {% for x in schedules %}
+            <div class="p-2">
+                <label>Name</label>
+                <input name="val-{{forloop.counter}}" class="form-control mb-2" value="{{x}}">
+                <label>Link</label>
+                <input type="hidden" name="id-{{forloop.counter}}" value="{{x.id}}">
+                <textarea name="link-{{forloop.counter}}" class="form-control">{{x.link}}</textarea>
+            </div>
+            {% endfor %}
+            <button class="mt-2 btn btn-primary float-right">Update</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

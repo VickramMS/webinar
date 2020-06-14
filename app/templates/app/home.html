@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col card m-md-3 p-4 p-md-5 text-center ">
+        <h2>Artificial Intelligence in Health</h2>
+        <hr>
+        <br>
+        <div class="row m-0">
+            <div class="col-md-6">
+                <img width="100px" class="mb-2" style="border-radius: 50%;"
+                    src={{rps1.avatar}}
+                    alt="">
+                <hr>
+                <span style="font-size: smaller;">{{rps1.session}} -{{rps1.date}}</span><br>
+                <span style="font-size: smaller;">Time - {{rps1.time}}</span>
+                <h5><b>{{rps1.name}}</b></h5>
+                <p>
+                    {{rps1.details|safe}}
+
+                </p>
+            </div>
+            <div class="col-md-6">
+                <img width="100px" class="mb-2" style="border-radius: 50%;"
+                    src={{rps2.avatar}}
+                    alt="">
+                <hr>
+                <span style="font-size: smaller;">{{rps2.session}} -{{rps2.date}}</span><br>
+                <span style="font-size: smaller;">Time - {{rps2.time}}</span>
+                <h5><b>{{rps2.name}}</b></h5>
+                <p>
+                    {{rps2.details|safe}}
+
+                </p>
+            </div>
+        </div>
+            <a href="{% url 'register' %}" class="btn btn-primary">Register Now!</a>
+    </div>
+    <div class="card p-4 p-md-5 col-md-5 m-md-3 text-center">
+        <h2>Importance of IEEE</h2>
+        <hr><br>
+        <img width="100px" class="mb-2 mx-auto" style="border-radius: 50%;"
+            src="{{rps3.avatar}}"
+            alt="">
+        <hr>
+        <span style="font-size: smaller;">Date - {{rps3.date}}</span>
+        <span style="font-size: smaller;">Time - {{rps3.time}}</span>
+        <h5><b>{{rps3.name}}</b></h5>
+        <p>{{rps3.details|safe}}</p>
+        <a href="{% url 'register' %}" class="btn btn-primary">Register Now!</a>
+    </div>
+    <br>
+</div>
+
+{% endblock content %}

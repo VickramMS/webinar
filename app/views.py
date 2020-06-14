@@ -68,7 +68,7 @@ def newlink(request):
         messages.success(request, 'New Link has been posted successfully')
         return redirect('alerts')
     return render(request, 'app/alert.html')
-    
+
 def editschedules(request):
     context = {
         "schedules": Schedules.objects.all(),
@@ -83,7 +83,7 @@ def editschedules(request):
         messages.success(request, 'Links has been Updated')
         return redirect('alerts')
 
-    return render(request, 'app/edit_Schedules.html', context)
+    return render(request, 'app/edit_schedules.html', context)
 
 def newalert(request):
     if request.method  == "POST":

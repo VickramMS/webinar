@@ -4,7 +4,23 @@
 
 <div class="container">
     <div class="card p-5">
+        <form action="{% url 'newalert' %}" method="post">
+            <h3><b>New Alert</b></h3>
+            {% csrf_token %}
+            <label for="alert">Alert Message</label>
+            <textarea name="new-alert" class="form-control" id="alert" placeholder="Enter an alert to publish"></textarea>
+            <label for="color">Alert type</label>
+            <select name="new-color" class="form-control" id="color">
+                <option value="success">Green</option>
+                <option value="primary">Blue</option>
+                <option value="warning">Yellow</option>
+                <option value="danger">Red</option>
+            </select><br>
+            <button type="submit" class="btn btn-primary mr-0 ml-auto d-block">Post</button>
+        </form>
+        <hr>
         <form action="{% url 'editalerts' %}" method="post">
+            <h3><b>Edit Alerts</b></h3>
             {% csrf_token %}
             <input type="hidden" name="count" value="{{alerts.count}}">
             {% for x in alerts reversed %}

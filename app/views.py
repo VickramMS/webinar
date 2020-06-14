@@ -59,6 +59,16 @@ def alerts(request):
     }
     return render(request, 'app/alert.html', context)
 
+def newlink(request):
+    if request.method == "POST":
+        schedules = Schedules()
+        schedules.name = request.POST.get("name")
+        schedules.link = request.POST.get("link")
+        schedules.save()
+        messages.success(request, 'New Link has been posted successfully')
+        return redirect('alerts')
+    return render(request, 'app/alert.html')
+    
 def editschedules(request):
     context = {
         "schedules": Schedules.objects.all(),
@@ -74,6 +84,16 @@ def editschedules(request):
         return redirect('alerts')
 
     return render(request, 'app/edit_Schedules.html', context)
+
+def newalert(request):
+    if request.method  == "POST":
+        alerts = Alerts()
+        alerts.alert = request.POST.get("new-alert")
+        alerts.color = request.POST.get("new-color")
+        alerts.save()
+        messages.success(request, 'New Alert has been posted successfully!')
+        return redirect('alerts')
+    return render(request, 'app/alerts.html')
 
 def alertsedit(request):
     context = {

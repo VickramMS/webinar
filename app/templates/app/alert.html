@@ -2,20 +2,25 @@
 
 {% block content %}
 {% for message in messages %}
-  {% if message.tags == 'success' %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-  {% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
 {% endfor %}
 <div class="container">
     <div class="card p-5">
-        {% if request.user.is_superuser %}
         <div>
-            <a href="{% url 'editschedules' %}" class="btn btn-outline-secondary float-right text-dark"><i class="fa fa-pencil mr-2"></i>Edit Links</a>
-            <a href="{% url 'editalerts' %}" class="btn btn-outline-secondary float-right text-dark mr-2"><i class="fa fa-pencil mr-2"></i>Edit Alerts</a>
-        </div>          
-        {% endif %}
+            <h3>Alerts and Links
+                {% if request.user.is_superuser %}
+                <a href="{% url 'editschedules' %}" class="btn btn-outline-secondary float-right text-dark"><i
+                        class="fa fa-pencil mr-2"></i>Links</a>
+                <a href="{% url 'editalerts' %}" class="btn btn-outline-secondary float-right text-dark mr-2"><i
+                        class="fa fa-pencil mr-2"></i>Alerts</a>
+                {% endif %}
+            </h3>
+        </div>
+        <hr>
         {% for x in schedules %}
         <div class="p-2">
             <label for="link1">{{x}}</label>

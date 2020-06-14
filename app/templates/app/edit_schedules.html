@@ -4,7 +4,18 @@
 
 <div class="container">
     <div class="card p-5">
+        <h3><b>New Link</b></h3>
+        <form action="{% url 'newlink' %}" method="post">
+            {% csrf_token %}
+            <label>Name</label>
+            <input name="name" class="form-control mb-2" placeholder="Name of the event...">
+            <label>Link</label>
+            <textarea name="link" class="form-control" placeholder="Please enter a link..."></textarea><br>
+            <button type="submit" class="btn btn-primary mr-0 ml-auto d-block">Post</button>
+        </form>
+        <hr>
         <form action="{% url 'editschedules' %}" method="post">
+            <h3><b>Update Links</b></h3>
             {% csrf_token %}
             <input type="hidden" name="count" value="{{schedules.count}}">
             {% for x in schedules %}

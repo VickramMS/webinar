@@ -11,4 +11,7 @@ urlpatterns = [
     path('alerts/edit/', views.alertsedit, name="editalerts"),
     path('schedules/new/', views.newlink, name="newlink"),
     path('schedules/edit/', views.editschedules, name="editschedules"),
+    path('feedback/', views.feedback, name="feedback"),
+    path('validate/', views.validate, name="validate"),
+    path('certificate/<id>/<pk>/', views.certificate, name="certificate")
 ]

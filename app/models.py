@@ -5,8 +5,8 @@ import random
 
 class Attendee(models.Model):
     YEAR = (('I Year', 'I Year'), ('II Year', 'II Year'), ('III Year', 'III Year'), ('IV Year', 'IV Year'))
-    WEB = (('AI in Human Health', 'AI in Human Health'), ('Importance of IEEE', 'Importance of IEEE'), ('Both', 'Both'))
-    DESG = (('Student', 'Student'), ('Faculty', 'Faculty'))
+    WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
+    STUFAC = (('Student', 'Student'), ('Faculty', 'Faculty'))
     name = models.CharField(max_length=100)
     uqno = models.CharField(primary_key=True, max_length=6, unique=True, default=''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)))
     email = models.EmailField()
@@ -15,7 +15,8 @@ class Attendee(models.Model):
     dept = models.CharField(max_length=100)
     year = models.CharField(max_length=8, choices=YEAR)
     college = models.CharField(max_length=200)
-    desg = models.CharField(max_length=15, choices=DESG)
+    stufac = models.CharField(max_length=15, choices=STUFAC)
+    desg = models.CharField(max_length=100)
 
 
     def __str__(self):
@@ -51,4 +52,12 @@ class Alerts(models.Model):
 
     def __str__(self):
         return self.alert
-    
+
+class Feedback(models.Model):
+    WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
+    user = models.ForeignKey(Attendee, on_delete=models.CASCADE)
+    feedback = models.TextField()
+    webinar = models.CharField(max_length=200, choices=WEB)
+
+    def __str__(self):
+        return self.user.name

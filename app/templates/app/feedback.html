@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mx-md-5 px-md-5">
+    <div class="card mx-md-5 p-3 p-md-5">
+        <h2>Feedback</h2>
+        <span style="font-size: small;"><em>Your feedback is required, in order to issue your eCertificates</em></span>
+        <hr>
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+        {% elif message.tags == 'warning' %}
+        <div class="alert alert-warning">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="mail">Email</label>
+            <input type="text" class="form-control mb-2" name="email" id="mail" required>
+            <label for="webinar">Webinar:</label>
+            <select type="text" class="form-control mb-2" id="webinar" name="webinar" required>
+                <option value="AI - Prediction Machines">AI - Prediction Machines</option>
+                <option value="A complete vision to IEEE organisational structure and its benifits">A complete vision to IEEE organisational structure and its benifits</option>
+            </select>
+            <label for="feedback">Your feedback</label>
+            <textarea name="feedback" id="feedback" class="form-control" minlength="200" required></textarea>
+            <span class="mb-2" style="font-size: xx-small;"><em>A minimum of 200 chars required.</em></span>
+            <br>
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

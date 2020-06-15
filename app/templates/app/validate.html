@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mx-md-5 px-md-5">
+    <div class="card p-md-5 p-4">
+        <h2>Certificate Validation</h2>
+        <span style="font-size: small;"><em>You must have registered in this website and <a
+                    href="{% url 'feedback' %}">given a feedback</a> before to
+                receive your eCertificate</em></span>
+        <hr>
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+        {% elif message.tags == 'warning' %}
+        <div class="alert alert-warning">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <form action="{% url 'validate' %}" method="post">
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control mb-2">
+            <label for="webinar">Webinar</label>
+            <select type="text" class="form-control mb-3" id="webinar" name="webinar" required>
+                <option value="AI - Prediction Machines">AI - Prediction Machines</option>
+                <option value="A complete vision to IEEE organisational structure and its benifits">A complete vision to
+                    IEEE organisational structure and its benifits</option>
+            </select>
+            <button class="btn btn-primary col">Get Certificate</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

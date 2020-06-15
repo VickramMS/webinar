@@ -28,7 +28,7 @@ def register(request):
             attendee.dept = request.POST.get("dept")
             attendee.year = request.POST.get("year")
             attendee.college = request.POST.get("college")
-            attendee.desg = request.POST.get("designation")
+            attendee.stufac = request.POST.get("designation")
             attendee.save()
             messages.success(request, "You registration is successfull! Do keep an eye on the webiste's <b>Alerts</b> section for updates!")
     return render(request, 'app/register.html')
@@ -37,8 +37,8 @@ def register(request):
 def dashboard(request):
     context = {
         "objects": Attendee.objects.all(),
-        "students": Attendee.objects.filter(desg='Student'),
-        "faculty": Attendee.objects.filter(desg='Faculty'),
+        "students": Attendee.objects.filter(stufac='Student'),
+        "faculty": Attendee.objects.filter(stufac='Faculty'),
     }
     return render(request, 'app/dashboard.html', context)
 
@@ -46,8 +46,8 @@ def dashboard(request):
 def report(request):
     context = {
         "objects": Attendee.objects.all(),
-        "aiobj": list(Attendee.objects.filter(webinar="AI in Human Health")) + list(Attendee.objects.filter(webinar="Both")),
-        "ieeeobj": list(Attendee.objects.filter(webinar="Importance of IEEE")) + list(Attendee.objects.filter(webinar="Both"))
+        "aiobj": list(Attendee.objects.filter(webinar="AI - Prediction Machines")) + list(Attendee.objects.filter(webinar="Both")),
+        "ieeeobj": list(Attendee.objects.filter(webinar="A complete vision to IEEE organisational structure and its benifits")) + list(Attendee.objects.filter(webinar="Both"))
     }
 
     return render(request, 'app/report.html', context)
@@ -109,3 +109,58 @@ def alertsedit(request):
         messages.success(request, 'Alerts have been updated')
         return redirect('alerts')
     return render(request, 'app/alerts.html', context)
+
+def feedback(request):
+    if request.method  == "POST":
+        try:
+            user = Attendee.objects.get(email=request.POST.get("email"))
+            webinar = request.POST.get("webinar")
+            try:
+                length = len(list(Feedback.objects.filter(webinar=webinar, user=user)))
+                if length == 0:
+                    if user.webinar == webinar or user.webinar == "Both":
+                        feedback = Feedback()
+                        feedback.user = user
+                        feedback.feedback = request.POST.get("feedback")
+                        feedback.webinar = webinar
+                        feedback.save()
+                        messages.success(request, 'Your feedback has been submited')
+                        return redirect('alerts')
+                    else:
+                        messages.warning(request, 'You cannot give a feedback to a session which you have not enrolled')
+                else:
+                    messages.warning(request, 'You have already given your feedback')
+            except:
+                pass
+        except:
+            messages.warning(request, 'It seems you have entered an email id that has not been registered. Please contact the support.')
+    return render(request, 'app/feedback.html')
+
+def validate(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        webinar = request.POST.get("webinar")
+        try:
+            user = Attendee.objects.get(email=email)
+            try:
+                feedback = Feedback.objects.get(webinar=webinar, user=user)
+                if feedback.webinar == 'AI - Prediction Machines':
+                    return redirect("certificate", id=user.uqno, pk='ry6qw2')
+                elif feedback.webinar == 'A complete vision to IEEE organisational structure and its benifits':
+                    return redirect("certificate", id=user.uqno, pk='v6weg3')
+                else:
+                    messages.warning(request, 'There was a problem while trying to fetch your certificate. Please contact the support')
+            except:
+                messages.warning(request, 'You have not provided any feedback. Please give a feedback and try again. You can contact the support if you face any issues.')
+        except:
+            messages.error(request, 'It seems you have not registered with this email. Please check the email. You can contact the support if you face any issues.')
+    return render(request, 'app/validate.html')
+
+def certificate(request, id, pk):
+    user = Attendee.objects.get(uqno=id)
+
+    context = {
+        "attendee": user,
+        "certificate": pk,
+    }
+    return render(request, 'app/certificate.html', context)

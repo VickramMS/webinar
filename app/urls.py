@@ -12,6 +12,9 @@ urlpatterns = [
     path('schedules/new/', views.newlink, name="newlink"),
     path('schedules/edit/', views.editschedules, name="editschedules"),
     path('feedback/', views.feedback, name="feedback"),
+    path('feedback/view/', views.feedbackview, name="feedbackview"),
     path('validate/', views.validate, name="validate"),
-    path('certificate/<id>/<pk>/', views.certificate, name="certificate")
+    path('links/<pk>/', views.links, name="links"),
+    path('certificate/<id>/<pk>/', views.certificate, name="certificate"),
+    path('contact/', views.contact, name="contact")
 ]

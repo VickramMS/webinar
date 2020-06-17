@@ -28,7 +28,8 @@ def register(request):
             attendee.dept = request.POST.get("dept")
             attendee.year = request.POST.get("year")
             attendee.college = request.POST.get("college")
-            attendee.stufac = request.POST.get("designation")
+            attendee.stufac = request.POST.get("stufac")
+            attendee.desg = request.POST.get("desg")
             attendee.save()
             messages.success(request, "You registration is successfull! Do keep an eye on the webiste's <b>Alerts</b> section for updates!")
     return render(request, 'app/register.html')
@@ -54,10 +55,22 @@ def report(request):
 
 def alerts(request):
     context = {
-        "schedules": Schedules.objects.all(),
         "alerts": Alerts.objects.all()
     }
+    if request.method == "POST":
+        try:
+            user = Attendee.objects.get(email=request.POST.get("email"))
+            return redirect('links', pk=user.uqno)
+        except:
+            messages.warning(request, 'The entered Email is not registered.')
     return render(request, 'app/alert.html', context)
+
+
+def links(request, pk):
+    context = {
+        "schedules": Schedules.objects.all(),
+    }
+    return render(request, 'app/links.html', context)
 
 def newlink(request):
     if request.method == "POST":
@@ -69,6 +82,7 @@ def newlink(request):
         return redirect('alerts')
     return render(request, 'app/alert.html')
 
+@login_required
 def editschedules(request):
     context = {
         "schedules": Schedules.objects.all(),
@@ -85,6 +99,7 @@ def editschedules(request):
 
     return render(request, 'app/edit_schedules.html', context)
 
+@login_required
 def newalert(request):
     if request.method  == "POST":
         alerts = Alerts()
@@ -95,6 +110,7 @@ def newalert(request):
         return redirect('alerts')
     return render(request, 'app/alerts.html')
 
+@login_required
 def alertsedit(request):
     context = {
         "alerts": Alerts.objects.all(),
@@ -110,6 +126,7 @@ def alertsedit(request):
         return redirect('alerts')
     return render(request, 'app/alerts.html', context)
 
+
 def feedback(request):
     if request.method  == "POST":
         try:
@@ -121,8 +138,14 @@ def feedback(request):
                     if user.webinar == webinar or user.webinar == "Both":
                         feedback = Feedback()
                         feedback.user = user
-                        feedback.feedback = request.POST.get("feedback")
                         feedback.webinar = webinar
+                        feedback.qs1 = request.POST.get("qs-1")
+                        feedback.qs2 = request.POST.get("qs-2")
+                        feedback.qs3 = request.POST.get("qs-3")
+                        feedback.qs4 = request.POST.get("qs-4")
+                        feedback.qs5 = request.POST.get("qs-5")
+                        feedback.qs6 = request.POST.get("qs-6")
+                        feedback.feedback = request.POST.get("feedback")
                         feedback.save()
                         messages.success(request, 'Your feedback has been submited')
                         return redirect('alerts')
@@ -135,6 +158,27 @@ def feedback(request):
         except:
             messages.warning(request, 'It seems you have entered an email id that has not been registered. Please contact the support.')
     return render(request, 'app/feedback.html')
+
+@login_required
+def feedbackview(request):
+    context = {
+        "feedback": Feedback.objects.filter(webinar='AI - Prediction Machines'),
+        "qs1": Feedback.objects.values_list('qs1', flat=True).filter(webinar='AI - Prediction Machines'),
+        "qs2": Feedback.objects.values_list('qs2', flat=True).filter(webinar='AI - Prediction Machines'),
+        "qs3": Feedback.objects.values_list('qs3', flat=True).filter(webinar='AI - Prediction Machines'),
+        "qs4": Feedback.objects.values_list('qs4', flat=True).filter(webinar='AI - Prediction Machines'),
+        "qs5": Feedback.objects.values_list('qs5', flat=True).filter(webinar='AI - Prediction Machines'),
+        "qs6": Feedback.objects.values_list('qs6', flat=True).filter(webinar='AI - Prediction Machines'),
+        "feedback1": Feedback.objects.filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs11": Feedback.objects.values_list('qs1', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs21": Feedback.objects.values_list('qs2', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs31": Feedback.objects.values_list('qs3', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs41": Feedback.objects.values_list('qs4', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs51": Feedback.objects.values_list('qs5', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+        "qs61": Feedback.objects.values_list('qs6', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
+
+    }
+    return render(request, 'app/feedback_view.html', context)
 
 def validate(request):
     if request.method == "POST":
@@ -164,3 +208,13 @@ def certificate(request, id, pk):
         "certificate": pk,
     }
     return render(request, 'app/certificate.html', context)
+
+def contact(request):
+    if request.method == "POST":
+        contact = Contact()
+        contact.email = request.POST.get("email")
+        contact.quiry = request.POST.get("quiry")
+        contact.save()
+        messages.warning(request, 'Your request has been submitted. We will contact you shortly by email.')
+        return redirect("alerts")
+    return render(request, 'app/contact.html')

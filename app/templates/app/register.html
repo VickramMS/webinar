@@ -4,7 +4,8 @@
 
 <div class="card p-4 p-md-5 mx-md-5 text-center ">
     <h2>Register</h2>
-    <span style="font-size: small;"><em>Kindly make your the details entered is correct. The details you provide here will be taken for issuing certificate.</em></span>
+    <span style="font-size: small;"><em>Kindly make your the details entered is correct. The details you provide here
+            will be taken for issuing certificate.</em></span>
     <hr>
     <form action="{% url 'register' %}" class="text-left px-md-5" method="post">
         <div class="text-center">
@@ -28,15 +29,18 @@
         <input type="text" class="form-control mb-3" id="email" name="email" required>
         <label for="mobile">Mobile:</label>
         <input type="number" class="form-control mb-3" id="mobile" name="mobile" required>
-        <label for="designation">Student/Faculty:</label>
-        <select type="text" class="form-control mb-3" id="designation" name="designation" required>
-            <option value="Student">Student</option>
+        <label for="stufac">Student/Faculty:</label>
+        <select type="text" class="form-control mb-3" id="stufac" name="stufac" required>
+            <option value="Student" selected>Student</option>
             <option value="Faculty">Faculty</option>
         </select>
+        <label for="desg" id="l-desg">Designation</label>
+        <input type="text" name="desg" id="desg" class="form-control mb-2">
         <label for="webinar">Webinar:</label>
         <select type="text" class="form-control mb-3" id="webinar" name="webinar" required>
             <option value="AI - Prediction Machines">AI - Prediction Machines</option>
-            <option value="A complete vision to IEEE organisational structure and its benifits">A complete vision to IEEE organisational structure and its benifits</option>
+            <option value="A complete vision to IEEE organisational structure and its benifits">A complete vision to
+                IEEE organisational structure and its benifits</option>
             <option value="Both">Both</option>
         </select>
         <label for="dept">Department:</label>
@@ -53,5 +57,20 @@
         <button type="submit" class="btn btn-primary mr-0 ml-auto d-block">Register</button>
     </form>
 </div>
+
+<script>
+    $("#desg").hide();
+    $("#l-desg").hide();
+    $("#stufac").on("change", function () {
+        if ($(this).val() == "Student") {
+            $("#desg").hide();
+            $("#l-desg").hide();
+        }
+        if ($(this).val() == "Faculty") {
+            $("#desg").show()
+            $("#l-desg").show()
+        }
+    })
+</script>
 
 {% endblock content %}

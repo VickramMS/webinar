@@ -25,16 +25,15 @@
                     class="fa fa-pencil mr-2"></i>Alerts</a>
             {% endif %}
         </h3>
+        <hr>
+        <form action="{% url 'alerts' %}" method="post">
+            {% csrf_token %}
+            <label for="email">Enter your Registered Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <span style="font-size: small;"><em>Enter your Registered email to get the links for joining the webinar</em></span>
+            <button class="btn btn-primary col mt-3">Get links</button>
+        </form>
     </div>
-    <hr>
-    {% for x in schedules %}
-    <div class="p-2">
-        <label for="link1">{{x}}</label>
-        <textarea onclick="copy('{{forloop.counter}}')" id="copy-{{forloop.counter}}" data-toggle="tooltip"
-            data-placement="right" title="<em>Click to copy...</em>" data-html=true class="form-control"
-            readonly>{{x.link}}</textarea>
-    </div>
-    {% endfor %}
 </div>
 <hr>
 {% for alert in alerts %}
@@ -43,16 +42,4 @@
     <span style="font-size: x-small;">{{alert.time_stamp}}</span>
 </div>
 {% endfor %}
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    function copy(val) {
-        var copyText = document.getElementById("copy-" + val);
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        document.execCommand("copy");
-    }
-</script>
 {% endblock content %}

@@ -56,8 +56,20 @@ class Alerts(models.Model):
 class Feedback(models.Model):
     WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
     user = models.ForeignKey(Attendee, on_delete=models.CASCADE)
-    feedback = models.TextField()
     webinar = models.CharField(max_length=200, choices=WEB)
-
+    qs1 = models.CharField(max_length=1)
+    qs2 = models.CharField(max_length=1)
+    qs3 = models.CharField(max_length=1)
+    qs4 = models.CharField(max_length=1)
+    qs5 = models.CharField(max_length=1)
+    qs6 = models.CharField(max_length=1)
+    feedback = models.TextField()
     def __str__(self):
         return self.user.name
+
+class Contact(models.Model):
+    email = models.EmailField()
+    quiry = models.TextField()
+
+    def __str__(self):
+        return self.email

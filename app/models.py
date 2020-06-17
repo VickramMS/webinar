@@ -8,7 +8,7 @@ class Attendee(models.Model):
     WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
     STUFAC = (('Student', 'Student'), ('Faculty', 'Faculty'))
     name = models.CharField(max_length=100)
-    uqno = models.CharField(primary_key=True, max_length=6, unique=True, default=''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)))
+    uqno = models.CharField(primary_key=True, max_length=6, unique=True)
     email = models.EmailField()
     mobile = models.CharField(max_length=10)
     webinar = models.CharField(max_length=200, choices=WEB)

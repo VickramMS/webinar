@@ -32,12 +32,7 @@ def register(request):
             attendee.college = request.POST.get("college")
             attendee.stufac = request.POST.get("stufac")
             attendee.desg = request.POST.get("desg")
-            try:
-                x = Attendee.objects.get(uqno=''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)))
-            except:
-                for i in range(1,10):
-                    y = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6))
-                attendee.uqno = y
+            attendee.uqno = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6))
             attendee.save()
             messages.success(request, "You registration is successfull! Do keep an eye on the webiste's <b>Alerts</b> section for updates!")
     return render(request, 'app/register.html')

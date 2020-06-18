@@ -1,11 +1,146 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-{% if certificate == 'ry6qw2' %}
-Your Certificate 1 will be updated soon
-{% elif certificate == 'v6weg3' %}
-Your Certificate 2 will be updated soon
-{% else %}
-Invalid certificate code
-{% endif %}
-{% endblock content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Certificate</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+        <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <style>
+            .content {
+                position: absolute;
+                margin-top: 480px;
+                margin-left: 420px;
+                text-align: center;
+                font-family: 'Oswald', sans-serif;
+                font-size: 30px;
+                border: 1px solid white;
+                padding: 10px 70px;
+                width: 800px;
+            }
+
+            .id {
+                position: absolute;
+                transform: rotate(-90deg);
+                margin-top: 850px;
+                margin-left: -50px;
+                color: white;
+            }
+
+            .d-none {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h2>Your Certificate can be downloaded here</h2>
+            <span><b>Step 1:</b></span><br>
+            <label>Select your salutation:</label>
+            <input type="radio" onclick="fun(1)" name="salt" id="salt-1" value="Dr."><span>Dr.</span>
+            <input type="radio" onclick="fun(2)" name="salt" id="salt-2" value="Mr."><span>Mr.</span>
+            <input type="radio" onclick="fun(3)" name="salt" id="salt-3" value="Ms."><span>Ms.</span>
+            <br><br>
+            <span><b>Step 2:</b></span><br>
+            <label>Check for any discrepancies. If you experience any misalignment or error in the Certificate,<br>
+                please let us know through our telegram support. We will contact you shortly</label>
+            <br><br>
+            <span><b>Step 3:</b></span><br>
+            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. You can
+                right click and download it.</label>
+            <br><br>
+            <button onclick="gen()">generate Certificate</button>
+            <br>
+            <br>
+        </div>
+        <div id="here"></div>
+        <div id="area">
+            {% if certificate == 'ry6qw2' %}
+            <p class="content">
+                This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
+                    {{attendee}} </b>
+                {% if attendee.stufac == 'Student' %}
+                ({{attendee.year|cut:"Year"}} {{attendee.dept}}
+                of {{attendee.college}})
+                {% elif attendee.stufac == 'Faculty' %}
+                {{attendee.desg|title}} from {{attendee.college}}
+                {% endif %}
+                has attended a two-day webinar on <b>AI -
+                    Prediction Machines</b>, organized by the Department of Computer Science and Engineering,
+                Government College of Engineering, Bodinayakkanur on 22.06.2020 & 23.06.2020.
+            </p>
+            <span class="id">C.no:{{certificate}}/{{attendee.uqno}}</span>
+            <img id="img" style="border: 1px solid rgb(214, 214, 214);"
+                src="https://lh3.googleusercontent.com/aR5f2GOSm140iFx7Ov3jSLe82PbfiWBoUeDlncEZp1oWUFq846k7IEhmUG9IccbYgKblPWScNVczDvbMbzQVpEkfXfVDAJVnr57nSyezqe0eFe2jaCdW2XTttL8H96qznWJYMFF0-LyepQSukURoxGEpvUG6rJWENLobrNw585ccbsLeTzqUrgPnOT7vULpZcx4y3hIRXwHT_iOx23phlldzurnfMAQtxapYsJPAAMdA0NzgfeUIoyiapee8hvICQklUGj151ydZmSOFtCPJ6aOvj7QOG6zrANonkFcApfCwuUsp7yTZJYJl2sPBq1dFUtVTHY8XoMFPyzOBUbCpdR90sS3hkHPpxCWKE47FJL8zoWW5aqseY_s3CNtWIwgGYQDgRQkjPgrz1IgOdNSW0TyfsJ_3xMlI-ZO6Ryz5BOupmFj1YTbJY8aEx-dl_m5_-0heylJlbEmzuUpbE6-lwVT5XY1-Tay1Qc_PbAXjwTsn9H_scjCo9Qh-6_2fIHF2FnVkvlyOyfQ5g7X3DK7yUdU_LyWrLZoYZgj21SHZNVJyZ6I3bDcrpt7tXcVUOZ81nzVsvL-xO5znJsUuAtr3H2A7erMgmyP8hiQ3M-sd7u2ZtLKrNeami8Eq0EOyjViDD1TJqjcOVqRMztpo6WMl6INFP6m5MJcUv01tyP2OgEnrrurPEDe-AoXellBYcLs=w1350-h954-no?authuser=0">
+
+            {% elif certificate == 'v6weg3' %}
+            <p class="content">
+                This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
+                    {{attendee}} </b>
+                {% if attendee.stufac == 'Student' %}
+                ({{attendee.year|cut:"Year"}} {{attendee.dept}}
+                of {{attendee.college}})
+                {% elif attendee.stufac == 'Faculty' %}
+                {{attendee.desg|title}} from {{attendee.college}}
+                {% endif %} has attended a one-day webinar on <b>A Complete Vision to IEEE Organisational
+                    Structure and its Benifits</b>, organized by the Department of Computer Science and Engineering,
+                Government College of Engineering, Bodinayakkanur on 24.06.2020.
+            </p>
+            <span class="id" style="color: black">C.no:{{certificate}}/{{attendee.uqno}}</span>
+            <img id="img" style="border: 1px solid rgb(214, 214, 214);"
+                src="https://lh3.googleusercontent.com/YziQbhdFi2QNVdya7TXeJucJ26Faf_xwCpgHzVPFtheKOlqZ06gPrnyIjG0jrdLxMLeriulynIycDu9KngLUrUCISc7o7Re1DoMtakr08Xud_lzFlV4-isiHYzL21pejpdPC6EaJuYuTLormLz2oCrP9MTqffk1NA9WbjI-AcK3gBpdBRmV8MvJ_I0lB1TikQFzcPUMesAHMOKdeZYA9qPQjdLSmXO1y3NZB1PPa1dH9HFz3CHWrNHLyiB9gX3uuXf2D4XLkxFbghXO_6kDFmKEyXCNn0v_nJ0f0DCrQ_C5OIYv7A2VX3Bow2oBgJ6bxTkY8D3GRbTviIxM_jIEpKIfnMUftIZniQYE1Z00SwmXkbNKbDxvDyQqcoChHRFMgZA5k7j3ZsawL0R4-6bWkssplwxz3Rws_19V9RnSglNP82qPJ86jEBrw1lqOUuQyCe7pGQVdHWgb9shl1-4OW5LD0KIANPUrchHfyEQMBRu6-4P0eOjmwKnkWDBC5FlwLJUFW2zHI5LBJczYmuiPBC1hsUYY93LYNQlXTqEXX5JU481n-ZubZGuaIkxpPyh-58MU58pMOnT7XZMYuYkni9609_Dji78DK4qHy505vivUVeNVb1Tyau_e4QZgRJUq1etXMir4HPDEEzraiz2ycCsnBNsWDqIFyx4w9KplibDngRWMVTFSP--6xngjQsGI=w1350-h954-no?authuser=0">
+
+
+            {% endif %}
+
+
+
+        </div>
+        <script>
+            (function ($) {
+                $(document).on('contextmenu', '#img', function () {
+                    return false;
+                })
+            })(jQuery);
+
+            function gen(val) {
+                html2canvas(document.querySelector("#area"), {
+                    scale: 5,
+                    scrollX: 0,
+                    scrollY: -window.scrollY,
+                    allowTaint: true
+                }).then(canvas => {
+                    document.getElementById("area").innerHTML = ""
+                    document.getElementById("here").appendChild(canvas);
+                });
+            }
+            document.getElementById("dr").classList.add("d-none")
+            document.getElementById("mr").classList.add("d-none")
+            document.getElementById("ms").classList.add("d-none")
+
+            function fun(x) {
+                if (x == 1) {
+                    document.getElementById("dr").classList.remove("d-none")
+                    document.getElementById("mr").classList.add("d-none")
+                    document.getElementById("ms").classList.add("d-none")
+                }
+                if (x == 2) {
+                    document.getElementById("dr").classList.add("d-none")
+                    document.getElementById("mr").classList.remove("d-none")
+                    document.getElementById("ms").classList.add("d-none")
+                }
+                if (x == 3) {
+                    document.getElementById("dr").classList.add("d-none")
+                    document.getElementById("mr").classList.add("d-none")
+                    document.getElementById("ms").classList.remove("d-none")
+                }
+            }
+        </script>
+    </body>
+
+</html>

@@ -74,7 +74,8 @@
         <div class="pt-5">
             <h1>Government College of Engineering, Bodinayakkanur</h1>
             <span>Department of Computer Science and Engineering</span>
-            <h4 class="mt-2">A complete vision to IEEE organisational structure and its benifits - Webinar Participants</h4>
+            <h4 class="mt-2">A complete vision to IEEE organisational structure and its benifits - Webinar Participants
+            </h4>
         </div>
         <span class="float-right m-3"><b>Total count: </b>{% for x in ieeeobj %}
             {% if forloop.last %}
@@ -133,8 +134,10 @@
     }
 
     function gen(val) {
-        html2canvas(document.querySelector("#container-"+val), {
-            scale: 5
+        html2canvas(document.querySelector("#container-" + val), {
+            scale: 5,
+            scrollX: 0,
+            scrollY: -window.scrollY
         }).then(canvas => {
             document.getElementById("container").innerHTML = ""
             document.getElementById("image").appendChild(canvas);

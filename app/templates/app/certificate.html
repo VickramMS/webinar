@@ -14,14 +14,15 @@
             .content {
                 position: absolute;
                 text-align: center;
-                font-family: 'Oswald', sans-serif;
                 font-size: 32px;
                 width: 100%;
+                font-family: Oswald, sans-serif;
             }
 
             .par {
                 padding: 35% 15% 0% 15%;
-                text-align: justify;
+                text-align: center;
+                font-family: Oswald, sans-serif;
 
             }
 
@@ -29,32 +30,10 @@
                 position: absolute;
                 width: 100%;
                 text-align: center;
-                font-family: 'Oswald', sans-serif;
                 font-size: 32px;
-                margin-top: 59%;
-            }
-
-            .content-m {
-                position: absolute;
-                text-align: center;
-                font-family: 'Oswald', sans-serif;
-                font-size: 9px;
-                width: 100%;
-            }
-
-            .par-m {
-                padding: 35% 18% 0% 18%;
-                text-align: justify;
-                margin-left: -5%;
-            }
-
-            .id-m {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                font-family: 'Oswald', sans-serif;
-                margin-top: 58%;
-                font-size: 9px;
+                margin-top: 61%;
+                color: #0036aa;
+                font-family: Oswald, sans-serif;
             }
 
             .d-none {
@@ -68,16 +47,13 @@
                     document.getElementById("par").classList.add("par")
                     document.getElementById("id").classList.add("id")
                 } else {
-                    document.getElementById("content").classList.add("content-m")
-                    document.getElementById("par").classList.add("par-m")
-                    document.getElementById("par").style.width = window.innerWidth - 18
-                    document.getElementById("id").classList.add("id-m")
+                    document.getElementById("flex").innerHTML = "Oops! You might require a Desktop/Laptop to download your certificate. "
                 }
             });
         </script>
     </head>
 
-    <body>
+    <body id="flex">
         <div>
             <h2>Your Certificate can be downloaded here</h2>
             <span><b>Step 1:</b></span><br>
@@ -91,7 +67,7 @@
                 please let us know through our telegram support. We will contact you shortly</label>
             <br><br>
             <span><b>Step 3:</b></span><br>
-            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. You may have issues while downloading through chrome browser. However,
+            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. Right click and save the image to your pc. However,
                 we will be sending you a High Resolution Certificate to your mail later.</label>
             <br><br>
             <button onclick="gen()">generate Certificate</button>
@@ -103,40 +79,42 @@
             {% if certificate == 'ry6qw2' %}
             <div id="content">
                 <div id="par">
-                    This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
-                        {{attendee}} </b>
-                    {% if attendee.stufac == 'Student' %}
-                    ({{attendee.year|cut:"Year"}} {{attendee.dept}}
-                    of {{attendee.college}})
+                    This is to certify that <span style="color: #0036aa"><b><a id="dr">Dr.</a><a id="mr">Mr.</a><a
+                                id="ms">Ms.</a>
+                            {{attendee}}</b>,
+                        {% if attendee.stufac == 'Student' %}
+                        {{attendee.year|cut:"Year"}} {{attendee.dept}}
+                        of {{attendee.college}},</span>
                     {% elif attendee.stufac == 'Faculty' %}
-                    {{attendee.desg|title}} from {{attendee.college}}
+                    {{attendee.desg|title}}, {{attendee.college}},</span>
                     {% endif %}
-                    has attended a two-day webinar on <b>AI -
-                        Prediction Machines</b>, organized by the Department of Computer Science and Engineering,
-                    Government College of Engineering, Bodinayakkanur on 22.06.2020 & 23.06.2020.
+                    has attended a two-day webinar on <b>"AI -
+                        Prediction Machines"</b>, held on 22nd and 23rd June, 2020, through <span
+                        style="color: #0036aa">online mode.</span>
                 </div>
             </div>
-            <span id="id">E - Certificate. No: {{certificate}}/{{attendee.uqno}}</span>
-            <img id="img" width="100%" src="https://imagizer.imageshack.com/img922/4564/FVVAPz.jpg">
+            <span id="id">Unique ID: {{certificate}}/{{attendee.uqno}}</span>
+            <img id="img" width="100%" src="https://imagizer.imageshack.com/img922/2279/X88atM.jpg">
 
             {% elif certificate == 'v6weg3' %}
             <div id="content">
                 <div id="par">
-                    This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
-                        {{attendee}} </b>
-                    {% if attendee.stufac == 'Student' %}
-                    ({{attendee.year|cut:"Year"}} {{attendee.dept}}
-                    of {{attendee.college}})
+                    This is to certify that <span style="color: #0036aa"><b><a id="dr">Dr.</a><a id="mr">Mr.</a><a
+                                id="ms">Ms.</a>
+                            {{attendee}}</b>,
+                        {% if attendee.stufac == 'Student' %}
+                        {{attendee.year|cut:"Year"}} {{attendee.dept}}
+                        of {{attendee.college}},</span>
                     {% elif attendee.stufac == 'Faculty' %}
-                    {{attendee.desg|title}} from {{attendee.college}}
-                    {% endif %} has attended a one-day webinar on <b>A Complete Vision to IEEE Organisational
-                        Structure and its Benifits</b>, organized by the Department of Computer Science and Engineering,
-                    Government College of Engineering, Bodinayakkanur on 24.06.2020.
+                    {{attendee.desg|title}} from {{attendee.college}},</span>
+                    {% endif %}
+                    has attended a webinar on <b>"A complete vision to IEEE organisational structure and its benifits"</b>, held on 22nd and 23rd June, 2020, through <span
+                        style="color: #0036aa">online mode.</span>
                 </div>
             </div>
             </p>
-            <span class="id">E - Certificate. No: {{certificate}}/{{attendee.uqno}} </span>
-            <img id="img" width="100%" src="https://imagizer.imageshack.com/img924/5987/zG0YJD.jpg">
+            <span class="id">Unique ID: {{certificate}}/{{attendee.uqno}} </span>
+            <img id="img" width="100%" src="https://imagizer.imageshack.com/img923/3165/TlIHT1.jpg">
 
 
             {% endif %}

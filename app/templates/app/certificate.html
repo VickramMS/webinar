@@ -13,28 +13,68 @@
         <style>
             .content {
                 position: absolute;
-                margin-top: 480px;
-                margin-left: 420px;
                 text-align: center;
                 font-family: 'Oswald', sans-serif;
-                font-size: 30px;
-                border: 1px solid white;
-                padding: 10px 70px;
-                width: 800px;
+                font-size: 32px;
+                width: 100%;
+            }
+
+            .par {
+                padding: 35% 15% 0% 15%;
+                text-align: justify;
+
             }
 
             .id {
                 position: absolute;
-                transform: rotate(-90deg);
-                margin-top: 850px;
-                margin-left: -50px;
-                color: white;
+                width: 100%;
+                text-align: center;
+                font-family: 'Oswald', sans-serif;
+                font-size: 32px;
+                margin-top: 59%;
+            }
+
+            .content-m {
+                position: absolute;
+                text-align: center;
+                font-family: 'Oswald', sans-serif;
+                font-size: 9px;
+                width: 100%;
+            }
+
+            .par-m {
+                padding: 35% 18% 0% 18%;
+                text-align: justify;
+                margin-left: -5%;
+            }
+
+            .id-m {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                font-family: 'Oswald', sans-serif;
+                margin-top: 58%;
+                font-size: 9px;
             }
 
             .d-none {
                 display: none;
             }
         </style>
+        <script type="text/javascript">
+            $(window).on('load resize', function () {
+                if ($(window).width() > 600) {
+                    document.getElementById("content").classList.add("content")
+                    document.getElementById("par").classList.add("par")
+                    document.getElementById("id").classList.add("id")
+                } else {
+                    document.getElementById("content").classList.add("content-m")
+                    document.getElementById("par").classList.add("par-m")
+                    document.getElementById("par").style.width = window.innerWidth - 18
+                    document.getElementById("id").classList.add("id-m")
+                }
+            });
+        </script>
     </head>
 
     <body>
@@ -51,8 +91,8 @@
                 please let us know through our telegram support. We will contact you shortly</label>
             <br><br>
             <span><b>Step 3:</b></span><br>
-            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. You can
-                right click and download it.</label>
+            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. However,
+                we will be sending you a High Resolution Certificate to your mail later.</label>
             <br><br>
             <button onclick="gen()">generate Certificate</button>
             <br>
@@ -61,39 +101,42 @@
         <div id="here"></div>
         <div id="area">
             {% if certificate == 'ry6qw2' %}
-            <p class="content">
-                This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
-                    {{attendee}} </b>
-                {% if attendee.stufac == 'Student' %}
-                ({{attendee.year|cut:"Year"}} {{attendee.dept}}
-                of {{attendee.college}})
-                {% elif attendee.stufac == 'Faculty' %}
-                {{attendee.desg|title}} from {{attendee.college}}
-                {% endif %}
-                has attended a two-day webinar on <b>AI -
-                    Prediction Machines</b>, organized by the Department of Computer Science and Engineering,
-                Government College of Engineering, Bodinayakkanur on 22.06.2020 & 23.06.2020.
-            </p>
-            <span class="id">C.no:{{certificate}}/{{attendee.uqno}}</span>
-            <img id="img" style="border: 1px solid rgb(214, 214, 214);"
-                src="https://lh3.googleusercontent.com/aR5f2GOSm140iFx7Ov3jSLe82PbfiWBoUeDlncEZp1oWUFq846k7IEhmUG9IccbYgKblPWScNVczDvbMbzQVpEkfXfVDAJVnr57nSyezqe0eFe2jaCdW2XTttL8H96qznWJYMFF0-LyepQSukURoxGEpvUG6rJWENLobrNw585ccbsLeTzqUrgPnOT7vULpZcx4y3hIRXwHT_iOx23phlldzurnfMAQtxapYsJPAAMdA0NzgfeUIoyiapee8hvICQklUGj151ydZmSOFtCPJ6aOvj7QOG6zrANonkFcApfCwuUsp7yTZJYJl2sPBq1dFUtVTHY8XoMFPyzOBUbCpdR90sS3hkHPpxCWKE47FJL8zoWW5aqseY_s3CNtWIwgGYQDgRQkjPgrz1IgOdNSW0TyfsJ_3xMlI-ZO6Ryz5BOupmFj1YTbJY8aEx-dl_m5_-0heylJlbEmzuUpbE6-lwVT5XY1-Tay1Qc_PbAXjwTsn9H_scjCo9Qh-6_2fIHF2FnVkvlyOyfQ5g7X3DK7yUdU_LyWrLZoYZgj21SHZNVJyZ6I3bDcrpt7tXcVUOZ81nzVsvL-xO5znJsUuAtr3H2A7erMgmyP8hiQ3M-sd7u2ZtLKrNeami8Eq0EOyjViDD1TJqjcOVqRMztpo6WMl6INFP6m5MJcUv01tyP2OgEnrrurPEDe-AoXellBYcLs=w1350-h954-no?authuser=0">
+            <div id="content">
+                <div id="par">
+                    This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
+                        {{attendee}} </b>
+                    {% if attendee.stufac == 'Student' %}
+                    ({{attendee.year|cut:"Year"}} {{attendee.dept}}
+                    of {{attendee.college}})
+                    {% elif attendee.stufac == 'Faculty' %}
+                    {{attendee.desg|title}} from {{attendee.college}}
+                    {% endif %}
+                    has attended a two-day webinar on <b>AI -
+                        Prediction Machines</b>, organized by the Department of Computer Science and Engineering,
+                    Government College of Engineering, Bodinayakkanur on 22.06.2020 & 23.06.2020.
+                </div>
+            </div>
+            <span id="id">E - Certificate. No: {{certificate}}/{{attendee.uqno}}</span>
+            <img id="img" width="100%" src="https://imagizer.imageshack.com/img922/4564/FVVAPz.jpg">
 
             {% elif certificate == 'v6weg3' %}
-            <p class="content">
-                This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
-                    {{attendee}} </b>
-                {% if attendee.stufac == 'Student' %}
-                ({{attendee.year|cut:"Year"}} {{attendee.dept}}
-                of {{attendee.college}})
-                {% elif attendee.stufac == 'Faculty' %}
-                {{attendee.desg|title}} from {{attendee.college}}
-                {% endif %} has attended a one-day webinar on <b>A Complete Vision to IEEE Organisational
-                    Structure and its Benifits</b>, organized by the Department of Computer Science and Engineering,
-                Government College of Engineering, Bodinayakkanur on 24.06.2020.
+            <div id="content">
+                <div id="par">
+                    This is to certify that <b><a id="dr">Dr.</a><a id="mr">Mr.</a><a id="ms">Ms.</a>
+                        {{attendee}} </b>
+                    {% if attendee.stufac == 'Student' %}
+                    ({{attendee.year|cut:"Year"}} {{attendee.dept}}
+                    of {{attendee.college}})
+                    {% elif attendee.stufac == 'Faculty' %}
+                    {{attendee.desg|title}} from {{attendee.college}}
+                    {% endif %} has attended a one-day webinar on <b>A Complete Vision to IEEE Organisational
+                        Structure and its Benifits</b>, organized by the Department of Computer Science and Engineering,
+                    Government College of Engineering, Bodinayakkanur on 24.06.2020.
+                </div>
+            </div>
             </p>
-            <span class="id" style="color: black">C.no:{{certificate}}/{{attendee.uqno}}</span>
-            <img id="img" style="border: 1px solid rgb(214, 214, 214);"
-                src="https://lh3.googleusercontent.com/YziQbhdFi2QNVdya7TXeJucJ26Faf_xwCpgHzVPFtheKOlqZ06gPrnyIjG0jrdLxMLeriulynIycDu9KngLUrUCISc7o7Re1DoMtakr08Xud_lzFlV4-isiHYzL21pejpdPC6EaJuYuTLormLz2oCrP9MTqffk1NA9WbjI-AcK3gBpdBRmV8MvJ_I0lB1TikQFzcPUMesAHMOKdeZYA9qPQjdLSmXO1y3NZB1PPa1dH9HFz3CHWrNHLyiB9gX3uuXf2D4XLkxFbghXO_6kDFmKEyXCNn0v_nJ0f0DCrQ_C5OIYv7A2VX3Bow2oBgJ6bxTkY8D3GRbTviIxM_jIEpKIfnMUftIZniQYE1Z00SwmXkbNKbDxvDyQqcoChHRFMgZA5k7j3ZsawL0R4-6bWkssplwxz3Rws_19V9RnSglNP82qPJ86jEBrw1lqOUuQyCe7pGQVdHWgb9shl1-4OW5LD0KIANPUrchHfyEQMBRu6-4P0eOjmwKnkWDBC5FlwLJUFW2zHI5LBJczYmuiPBC1hsUYY93LYNQlXTqEXX5JU481n-ZubZGuaIkxpPyh-58MU58pMOnT7XZMYuYkni9609_Dji78DK4qHy505vivUVeNVb1Tyau_e4QZgRJUq1etXMir4HPDEEzraiz2ycCsnBNsWDqIFyx4w9KplibDngRWMVTFSP--6xngjQsGI=w1350-h954-no?authuser=0">
+            <span class="id">E - Certificate. No: {{certificate}}/{{attendee.uqno}} </span>
+            <img id="img" width="100%" src="https://imagizer.imageshack.com/img924/5987/zG0YJD.jpg">
 
 
             {% endif %}
@@ -102,18 +145,12 @@
 
         </div>
         <script>
-            (function ($) {
-                $(document).on('contextmenu', '#img', function () {
-                    return false;
-                })
-            })(jQuery);
-
             function gen(val) {
                 html2canvas(document.querySelector("#area"), {
                     scale: 5,
                     scrollX: 0,
                     scrollY: -window.scrollY,
-                    allowTaint: true
+                    allowTaint: true,
                 }).then(canvas => {
                     document.getElementById("area").innerHTML = ""
                     document.getElementById("here").appendChild(canvas);

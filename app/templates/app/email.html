@@ -7,8 +7,9 @@
 </head>
 <body>
     {% for x in email %}
+    {{x}}
     {% if forloop.counter %80 == 0 %}
-      <br><br>
+      <br><br><br><br>
     {% endif %}
     {% endfor %}
 </body>

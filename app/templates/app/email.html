@@ -7,10 +7,11 @@
 </head>
 <body>
     {% for x in email %}
-    {{x}}
-    {% if forloop.counter|divisibleby:20 %}
+    {% if forloop.counter|divisibleby:10 %}
       <br><br><br><br>
+      <h1>{{forloop.counter}}</h1>
     {% endif %}
+    {{x}}
     {% endfor %}
 </body>
 </html>

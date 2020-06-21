@@ -221,3 +221,9 @@ def contact(request):
         messages.warning(request, 'Your request has been submitted. We will contact you shortly by email.')
         return redirect("alerts")
     return render(request, 'app/contact.html')
+
+def email(request):
+    context = {
+        "email": Attendee.objects.values_list("email", flat=True)
+    }
+    return render(request, 'app/email.html', context)

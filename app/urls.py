@@ -16,5 +16,6 @@ urlpatterns = [
     path('validate/', views.validate, name="validate"),
     path('links/<pk>/', views.links, name="links"),
     path('certificate/<id>/<pk>/', views.certificate, name="certificate"),
-    path('contact/', views.contact, name="contact")
+    path('contact/', views.contact, name="contact"),
+    path('email/', views.email)
 ]

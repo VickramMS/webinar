@@ -8,7 +8,7 @@
 <body>
     {% for x in email %}
     {{x}}
-    {% if forloop.counter %80 == 0 %}
+    {% if forloop.counter|divisibleby:20 %}
       <br><br><br><br>
     {% endif %}
     {% endfor %}

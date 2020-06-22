@@ -58,14 +58,9 @@ def report(request):
 
 def alerts(request):
     context = {
-        "alerts": Alerts.objects.all()
+        "alerts": Alerts.objects.all(),
+        "schedules": Schedules.objects.all(),
     }
-    if request.method == "POST":
-        try:
-            user = Attendee.objects.get(email=request.POST.get("email"))
-            return redirect('links', pk=user.uqno)
-        except:
-            messages.warning(request, 'The entered Email is not registered.')
     return render(request, 'app/alert.html', context)
 
 

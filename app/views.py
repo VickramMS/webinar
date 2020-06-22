@@ -6,12 +6,7 @@ import string
 import random 
 
 def home(request):
-    context = {
-        "rps1": ResourcePerson.objects.get(id=1),
-        "rps2": ResourcePerson.objects.get(id=2),
-        "rps3": ResourcePerson.objects.get(id=3),
-    }
-    return render(request, 'app/home.html', context)
+    return redirect("alerts")
 
 def register(request):
     if request.method == "POST":

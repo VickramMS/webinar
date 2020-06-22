@@ -26,13 +26,12 @@
             {% endif %}
         </h3>
         <hr>
-        <form action="{% url 'alerts' %}" method="post">
-            {% csrf_token %}
-            <label for="email">Enter your Registered Email</label>
-            <input type="email" class="form-control" id="email" name="email">
-            <span style="font-size: small;"><em>Enter your Registered email to get the links for joining the webinar</em></span>
-            <button class="btn btn-primary col mt-3">Get links</button>
-        </form>
+        {% for x in schedules %}
+        <label for="link1">{{x}}</label>
+        <textarea onclick="copy('{{forloop.counter}}')" id="copy-{{forloop.counter}}" data-toggle="tooltip"
+            data-placement="right" title="<em>Click to copy...</em>" data-html=true class="form-control mb-3"
+            readonly>{{x.link}}</textarea>
+        {% endfor %}
     </div>
 </div>
 <hr>

@@ -8,14 +8,8 @@
     </head>
 
     <body>
-        {% for x in numbers %}
-        {% if forloop.counter|divisibleby:80 %}
-        <br><br><br>
-        {% endif %}
-          {{x}},
-        {% endfor %}
 
-        <div style="display: none;">
+        <div>
             {% for x in email %}
             {{x}} <br>
             {% endfor %}

@@ -214,6 +214,11 @@ def contact(request):
 
 def email(request):
     context = {
-        "email": Contact.objects.values_list("email", flat=True),
+        "objs": Contact.objects.all(),
     }
     return render(request, 'app/email.html', context)
+
+def delete(request, pk):
+    contact = Contact.objects.get(id=pk)
+    contact.delete()
+    return redirect("email")

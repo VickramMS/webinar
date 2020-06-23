@@ -8,13 +8,18 @@
     </head>
 
     <body>
-
-        <div>
-            {% for x in email %}
-            {{x}} <br>
-            {% endfor %}
+        {% for obj in objs %}
+        {% csrf_token %}
+        <div style="padding: 20px">
+            <h3>{{obj.email}}</h3>
+            <br>
+            <p>{{obj.quiry}}</p>
+            <br>
+            <a href="{% url 'delete' pk=obj.id %}">Delete</a>
         </div>
+        {% endfor %}
+
     </body>
-    
+
 
 </html>

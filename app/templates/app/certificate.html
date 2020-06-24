@@ -139,6 +139,7 @@
                     document.getElementById("area").innerHTML = ""
                     document.getElementById("here").appendChild(canvas);
                 });
+                $("canvas").attr("download", "{{attendee.email}}.png")
                 
                 var copyText = document.getElementById("copy");
                 copyText.select();

@@ -15,8 +15,11 @@
             <p>{{obj.quiry}}</p>
             <br>
             {% for at in attendee %}
-            <a href="{% url 'certificate' id=at.uqno pk='v6weg3' %}">Certificate</a>
+            {% if obj.email == at.email %}
+            <a href="{% url 'certificate' id=at.uqno pk='v6weg3' %}">Certificate</a>          
+            {% endif %}
             {% endfor %}
+            <br>
             <a href="{% url 'delete' pk=obj.id %}">Delete</a>
         </div>
         {% endfor %}

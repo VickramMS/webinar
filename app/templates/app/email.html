@@ -8,7 +8,6 @@
     </head>
 
     <body>
-    <div style="display: none;">
         {% for obj in objs %}
         <div style="padding: 20px">
             <h3>{{obj.email}}</h3>
@@ -18,16 +17,7 @@
             <a href="{% url 'delete' pk=obj.id %}">Delete</a>
         </div>
         {% endfor %}
-    </div>
 
-
-
-    {% for x in number %}
-    {% if forloop.counter|divisibleby:20 %}
-      <br><br>
-    {% endif %}
-    {{x}},
-    {% endfor %}
 
     </body>
 

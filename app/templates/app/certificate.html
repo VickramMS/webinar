@@ -58,7 +58,7 @@
     <body id="flex">
         <div>
             <h2>Your Certificate can be downloaded here</h2>
-            email: <span id="copy" onclick="copy()">{{attendee.email}}</span> <br>
+            email: <span id="copy">{{attendee.email}}</span> <br>
             <span><b>Step 1:</b></span><br>
             <label>Select your salutation:</label>
             <input type="radio" onclick="fun(1)" name="salt" id="salt-1" value="Dr."><span>Dr.</span>
@@ -98,6 +98,7 @@
                 </div>
             </div>
             <span id="id">Unique ID: {{certificate}}/{{attendee.uqno}}</span>
+            
             <img id="img" width="100%" src="https://imagizer.imageshack.com/img923/6146/nGqjO6.jpg">
 
             {% elif certificate == 'v6weg3' %}
@@ -138,6 +139,11 @@
                     document.getElementById("area").innerHTML = ""
                     document.getElementById("here").appendChild(canvas);
                 });
+                
+                var copyText = document.getElementById("copy");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
             }
             document.getElementById("dr").classList.add("d-none")
             document.getElementById("mr").classList.add("d-none")
@@ -162,10 +168,6 @@
             }
 
             function copy() {
-                var copyText = document.getElementById("copy");
-                copyText.select();
-                copyText.setSelectionRange(0, 99999);
-                document.execCommand("copy");
             }
         </script>
     </body>

@@ -216,6 +216,7 @@ def email(request):
     context = {
         "objs": Contact.objects.all(),
         "number": Attendee.objects.values_list("mobile", flat=True),
+        "attendee": Attendee.objects.values_list("email", flat=True)
     }
     return render(request, 'app/email.html', context)
 

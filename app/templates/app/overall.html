@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    name, email, mobile, webinar, department, year, college, stufac, designation
+    name, email, mobile, webinar, department, year, college, stufac, designation <br>
     {% for x in attendees %}
-    {{x.name}}, {{x.email}}, {{x.mobile}}, {{x.webinar}}, {{dept}}, {{x.year}}, {{x.college}}, {{x.stufac}}, {{x.desg}} <br>
+    {{forloop.counter}}, {{x.name}}, {{x.email}}, {{x.mobile}}, {{x.webinar}}, {{dept}}, {{x.year}}, {{x.college}}, {{x.stufac}}, {{x.desg}} <br>
     {% endfor %}
 </body>
 </html>

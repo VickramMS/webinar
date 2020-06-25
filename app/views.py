@@ -224,3 +224,9 @@ def delete(request, pk):
     contact = Contact.objects.get(id=pk)
     contact.delete()
     return redirect("email")
+
+def overall(request):
+    context = {
+        "attendees": Attendee.objects.all()
+    }
+    return render(request, 'app/overall.html')

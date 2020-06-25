@@ -229,4 +229,4 @@ def overall(request):
     context = {
         "attendees": Attendee.objects.all()
     }
-    return render(request, 'app/overall.html')
+    return render(request, 'app/overall.html', context)

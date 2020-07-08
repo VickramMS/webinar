@@ -8,22 +8,11 @@
     </head>
 
     <body>
-        {% for obj in objs %}
-        <div style="padding: 20px">
-            <h3>{{obj.email}}</h3>
-            <br>
-            <p>{{obj.quiry}}</p>
-            <br>
-            {% for at in attendee %}
-            {% if obj.email == at.email %}
-            <a href="{% url 'certificate' id=at.uqno pk='v6weg3' %}">Certificate</a>          
-            {% endif %}
+        <div style="padding: 10px">
+            {% for obj in objs %}
+            {{obj.user}},{{obj.user.email}},{{obj.webinar}},{{obj.feedback}}<br>
             {% endfor %}
-            <br>
-            <a href="{% url 'delete' pk=obj.id %}">Delete</a>
         </div>
-        {% endfor %}
-
 
     </body>
 

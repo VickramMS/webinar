@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/486de4f623.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+            integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
+        </script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
@@ -18,11 +20,19 @@
             body {
                 background-color: rgb(230, 230, 230);
             }
-            body, h1,h2,h3,h4,h5,h6{
+
+            body,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
                 font-weight: 400;
             }
         </style>
     </head>
+
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
@@ -35,20 +45,17 @@
                     <ul class="navbar-nav">
                     </ul>
                     <ul class="navbar-nav mr-o ml-auto">
-                        <!--
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'register' %}">Register!</a>
                         </li>
-                    -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'alerts' %}">Alerts</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'validate' %}">Certificate</a>
-                        </li>
+                        <!--                            
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
                         </li>
+                        -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
@@ -59,10 +66,10 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'logout' %}">Logout <i class="ml-1 far fa-user"></i></a>
                         </li>
-                        {% else %}        
+                        {% else %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'login' %}">Login <i class="ml-1 far fa-user"></i></a>
-                        </li>                  
+                        </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -70,16 +77,16 @@
         </nav>
 
         <div class="container pt-md-5">
-                <div class="mx-md-5 mt-3 mt-md-0">
+            <div class="mx-md-5 mt-3 mt-md-0">
                 {% block content %}
 
                 {% endblock content %}
-                </div>
             </div>
         </div>
-<br><br><br>
+        </div>
+        <br><br><br>
 
-        
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
         </script>

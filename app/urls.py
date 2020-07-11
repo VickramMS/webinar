@@ -5,7 +5,6 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('register/', views.register, name="register"),
     path('dashboard/', views.dashboard, name="dashboard"),
-    path('report/', views.report, name="report"),
     path('alerts/', views.alerts, name="alerts"),
     path('alerts/new/', views.newalert, name="newalert"),
     path('alerts/edit/', views.alertsedit, name="editalerts"),
@@ -13,11 +12,12 @@ urlpatterns = [
     path('schedules/edit/', views.editschedules, name="editschedules"),
     path('feedback/', views.feedback, name="feedback"),
     path('feedback/view/', views.feedbackview, name="feedbackview"),
-    path('validate/', views.validate, name="validate"),
     path('links/<pk>/', views.links, name="links"),
-    path('certificate/<id>/<pk>/', views.certificate, name="certificate"),
     path('contact/', views.contact, name="contact"),
     path('email/', views.email, name="email"), 
     path('delete/<pk>/', views.delete, name="delete"),
-    path('overall/', views.overall)
+    path('overall/', views.overall),
+    path('certificate/<pk>/', views.GenerateCertificate.as_view(), name="certificate"),
+    path('ygfu36t63uyg4/report/', views.GenerateReport.as_view(), name="report"),
+    path('alerts/massmail/<pk>/', views.masssendlink, name="massmail")
 ]

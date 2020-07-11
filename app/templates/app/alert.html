@@ -27,7 +27,8 @@
         </h3>
         <hr>
         {% for x in schedules %}
-        <label for="link1">{{x}}</label>
+        <label>{{x}}</label><br> <span class="float-right"><a href="{% url 'massmail' pk=x.id %}">Mass mail</a></span>
+        <a href="{{x.link}}">{{x.link}}</a><br><br>
         {% empty %}
         No meetings right now
 

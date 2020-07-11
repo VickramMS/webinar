@@ -5,18 +5,19 @@ import random
 
 class Attendee(models.Model):
     YEAR = (('I Year', 'I Year'), ('II Year', 'II Year'), ('III Year', 'III Year'), ('IV Year', 'IV Year'))
-    WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
-    STUFAC = (('Student', 'Student'), ('Faculty', 'Faculty'))
+    STUFAC = (('Student', 'Student'), ('Faculty', 'Faculty'), ('Industry Expert', 'Industry Expert'))
+    GENDER = (('Male', 'Male'), ('Female', 'Female'), ('Prefer not to say', 'Prefer not to say'))
     name = models.CharField(max_length=100)
     uqno = models.CharField(max_length=6)
     email = models.EmailField()
     mobile = models.CharField(max_length=10)
-    webinar = models.CharField(max_length=200, choices=WEB)
+    webinar = models.CharField(max_length=200)
     dept = models.CharField(max_length=100)
     year = models.CharField(max_length=8, choices=YEAR)
     college = models.CharField(max_length=200)
     stufac = models.CharField(max_length=15, choices=STUFAC)
     desg = models.CharField(max_length=100)
+    gender = models.CharField(max_length=25, choices=GENDER)
 
 
     def __str__(self):
@@ -54,9 +55,8 @@ class Alerts(models.Model):
         return self.alert
 
 class Feedback(models.Model):
-    WEB = (('AI - Prediction Machines', 'AI - Prediction Machines'), ('A complete vision to IEEE organisational structure and its benifits', 'A complete vision to IEEE organisational structure and its benifits'), ('Both', 'Both'))
     user = models.ForeignKey(Attendee, on_delete=models.CASCADE)
-    webinar = models.CharField(max_length=200, choices=WEB)
+    webinar = models.CharField(max_length=200)
     qs1 = models.CharField(max_length=1)
     qs2 = models.CharField(max_length=1)
     qs3 = models.CharField(max_length=1)

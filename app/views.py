@@ -1,12 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.views import login_required
 import string 
 import random 
+from django.core.mail import send_mail, send_mass_mail
+from django.conf import settings
+from django.views.generic import View
+from django.template.loader import get_template 
+from sample_project.utils import certificate, report
+from django.template import loader
+
 
 def home(request):
-    return redirect("alerts")
+    rps = ResourcePerson.objects.first()
+    context = {
+        "rps": rps
+    }
+    return render(request, 'app/home.html', context)
 
 def register(request):
     if request.method == "POST":
@@ -27,9 +38,28 @@ def register(request):
             attendee.college = request.POST.get("college")
             attendee.stufac = request.POST.get("stufac")
             attendee.desg = request.POST.get("desg")
+            attendee.gender = request.POST.get("gender")
             attendee.uqno = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6))
             attendee.save()
-            messages.success(request, "You registration is successfull! Do keep an eye on the webiste's <b>Alerts</b> section for updates!")
+            content = {
+                "name": attendee.name,
+                "dept": attendee.dept,
+                "year": attendee.year,
+                "college": attendee.college,
+                "dept": attendee.dept,
+                "desg": attendee.desg,
+                "stufac": attendee.stufac,
+            }
+            html_message = loader.render_to_string('email/confirmation.html', content)
+            send_mail(
+                subject="GCE BODI - WEBINAR",
+                message="This is a confirmation mail from GCE BODI - Webinars. Please find more details in gcebodi.herokuapp.com/alerts/. Thank you!",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[str(attendee.email)],
+                html_message=html_message,
+                fail_silently=False
+            )
+            messages.success(request, "Please check your <b>email</b> for further updates!")
     return render(request, 'app/register.html')
 
 @login_required
@@ -38,18 +68,10 @@ def dashboard(request):
         "objects": Attendee.objects.all(),
         "students": Attendee.objects.filter(stufac='Student'),
         "faculty": Attendee.objects.filter(stufac='Faculty'),
+        "expert": Attendee.objects.filter(stufac='Industry Expert')
     }
     return render(request, 'app/dashboard.html', context)
 
-@login_required
-def report(request):
-    context = {
-        "objects": Attendee.objects.all(),
-        "aiobj": list(Attendee.objects.filter(webinar="AI - Prediction Machines")) + list(Attendee.objects.filter(webinar="Both")),
-        "ieeeobj": list(Attendee.objects.filter(webinar="A complete vision to IEEE organisational structure and its benifits")) + list(Attendee.objects.filter(webinar="Both"))
-    }
-
-    return render(request, 'app/report.html', context)
 
 def alerts(request):
     context = {
@@ -128,22 +150,19 @@ def feedback(request):
             try:
                 length = len(list(Feedback.objects.filter(webinar=webinar, user=user)))
                 if length == 0:
-                    if user.webinar == webinar or user.webinar == "Both":
-                        feedback = Feedback()
-                        feedback.user = user
-                        feedback.webinar = webinar
-                        feedback.qs1 = request.POST.get("qs-1")
-                        feedback.qs2 = request.POST.get("qs-2")
-                        feedback.qs3 = request.POST.get("qs-3")
-                        feedback.qs4 = request.POST.get("qs-4")
-                        feedback.qs5 = request.POST.get("qs-5")
-                        feedback.qs6 = request.POST.get("qs-6")
-                        feedback.feedback = request.POST.get("feedback")
-                        feedback.save()
-                        messages.success(request, 'Your feedback has been submited')
-                        return redirect('alerts')
-                    else:
-                        messages.warning(request, 'You cannot give a feedback to a session which you have not enrolled')
+                    feedback = Feedback()
+                    feedback.user = user
+                    feedback.webinar = webinar
+                    feedback.qs1 = request.POST.get("qs-1")
+                    feedback.qs2 = request.POST.get("qs-2")
+                    feedback.qs3 = request.POST.get("qs-3")
+                    feedback.qs4 = request.POST.get("qs-4")
+                    feedback.qs5 = request.POST.get("qs-5")
+                    feedback.qs6 = request.POST.get("qs-6")
+                    feedback.feedback = request.POST.get("feedback")
+                    feedback.save()
+                    messages.success(request, 'Your feedback has been submited')
+                    return redirect('alerts')
                 else:
                     messages.warning(request, 'You have already given your feedback')
             except:
@@ -155,52 +174,15 @@ def feedback(request):
 @login_required
 def feedbackview(request):
     context = {
-        "feedback": Feedback.objects.filter(webinar='AI - Prediction Machines'),
-        "qs1": Feedback.objects.values_list('qs1', flat=True).filter(webinar='AI - Prediction Machines'),
-        "qs2": Feedback.objects.values_list('qs2', flat=True).filter(webinar='AI - Prediction Machines'),
-        "qs3": Feedback.objects.values_list('qs3', flat=True).filter(webinar='AI - Prediction Machines'),
-        "qs4": Feedback.objects.values_list('qs4', flat=True).filter(webinar='AI - Prediction Machines'),
-        "qs5": Feedback.objects.values_list('qs5', flat=True).filter(webinar='AI - Prediction Machines'),
-        "qs6": Feedback.objects.values_list('qs6', flat=True).filter(webinar='AI - Prediction Machines'),
-        "feedback1": Feedback.objects.filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs11": Feedback.objects.values_list('qs1', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs21": Feedback.objects.values_list('qs2', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs31": Feedback.objects.values_list('qs3', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs41": Feedback.objects.values_list('qs4', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs51": Feedback.objects.values_list('qs5', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-        "qs61": Feedback.objects.values_list('qs6', flat=True).filter(webinar='A complete vision to IEEE organisational structure and its benifits'),
-
+        "feedback": Feedback.objects.filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs1": Feedback.objects.values_list('qs1', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs2": Feedback.objects.values_list('qs2', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs3": Feedback.objects.values_list('qs3', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs4": Feedback.objects.values_list('qs4', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs5": Feedback.objects.values_list('qs5', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "qs6": Feedback.objects.values_list('qs6', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
     }
     return render(request, 'app/feedback_view.html', context)
-
-def validate(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        webinar = request.POST.get("webinar")
-        try:
-            user = Attendee.objects.get(email=email)
-            try:
-                feedback = Feedback.objects.get(webinar=webinar, user=user)
-                if feedback.webinar == 'AI - Prediction Machines':
-                    return redirect("certificate", id=user.uqno, pk='ry6qw2')
-                elif feedback.webinar == 'A complete vision to IEEE organisational structure and its benifits':
-                    return redirect("certificate", id=user.uqno, pk='v6weg3')
-                else:
-                    messages.warning(request, 'There was a problem while trying to fetch your certificate. Please contact the support')
-            except:
-                messages.warning(request, 'You have not provided any feedback. Please give a feedback and try again. You can contact the support if you face any issues.')
-        except:
-            messages.error(request, 'It seems you have not registered with this email. Please check the email. You can contact the support if you face any issues.')
-    return render(request, 'app/validate.html')
-
-def certificate(request, id, pk):
-    user = Attendee.objects.get(uqno=id)
-
-    context = {
-        "attendee": user,
-        "certificate": pk,
-    }
-    return render(request, 'app/certificate.html', context)
 
 def contact(request):
     if request.method == "POST":
@@ -228,3 +210,62 @@ def overall(request):
         "attendees": Attendee.objects.all()
     }
     return render(request, 'app/overall.html', context)
+
+
+
+class GenerateCertificate(View):
+    def get(self, request, pk, *args, **kwargs):
+        template = get_template('app/certificate.html')
+        obj = Attendee.objects.get(uqno=pk)
+        context = {
+            "obj": Attendee.objects.get(uqno=pk)
+        }
+        html = template.render(context)
+        pdf = certificate('certificate.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = obj.name + ".pdf"
+            content = "inline; filename=%s.pdf" %(obj.name)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename=%s.pdf" %(obj.name)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
+    
+class GenerateReport(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('app/report.html')
+        context = {
+            "objects": Attendee.objects.all()
+        }
+        html = template.render(context)
+        pdf = report('invoice.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Report.pdf"
+            content = "inline; filename=Report"
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename=Report"
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
+
+def masssendlink(request, pk):
+    obj = Schedules.objects.get(id=pk)
+    data = []
+    for attendee in Attendee.objects.all():
+        data.append((
+            'GCE BODI - Webinar',
+            str("Link to the session : " + obj.link),
+            settings.EMAIL_HOST_USER,
+            [str(attendee.email)],
+        ))
+    send_mass_mail(
+        tuple(data),
+        fail_silently=False
+    )
+    messages.success(request, 'Mass mail has been sent successfully!')
+    return redirect('alerts')
+    

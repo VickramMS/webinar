@@ -9,15 +9,14 @@
         <hr>
         <form action="{% url 'contact' %}" method="POST">
             {% csrf_token %}
-            <label for="email">You email</label>
+            <label for="email">You email:</label>
             <input type="email" name="email" class="form-control mb-2" id="email">
-            <label for="quiry">You query</label>
-            <textarea name="quiry" id="quiry" class="form-control mb-2"></textarea>
+            <label for="query">Explain your issue in brief:</label>
+            <textarea name="query" id="quiry" class="form-control mb-2"></textarea>
             <span style="font-size: small;">Please explain your query in breif. We will contact you through your mail.</span>
             <br>
             <button class="btn btn-primary float-right">Submit</button>
-            <span>Also, You can follow our telegram support page for instant updates <a href="https://t.me/gcebodicsewebinar">here</a>.</span>
-
+            <span style="font-size: small;">Also, You can follow our WhatsApp group for instant updates <a href="https://chat.whatsapp.com/CnBVath5bnRHY5rF2FoDJg">here</a>.</span>
         </form>
     </div>
 </div>

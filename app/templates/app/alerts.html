@@ -2,12 +2,14 @@
 
 {% block content %}
 
-    <div class="card p-5">
-        <form action="{% url 'newalert' %}" method="post">
-            <h3><b>New Alert</b></h3>
-            {% csrf_token %}
+<div class="card p-5">
+    <form action="{% url 'newalert' %}" method="post">
+        <h3><b>New Alert</b></h3>
+        {% csrf_token %}
+        <div class="p-2">
             <label for="alert">Alert Message</label>
-            <textarea name="new-alert" class="form-control" id="alert" placeholder="Enter an alert to publish"></textarea>
+            <textarea name="new-alert" class="form-control" id="alert"
+                placeholder="Enter an alert to publish"></textarea>
             <label for="color">Alert type</label>
             <select name="new-color" class="form-control" id="color">
                 <option value="success">Green</option>
@@ -16,28 +18,29 @@
                 <option value="danger">Red</option>
             </select><br>
             <button type="submit" class="btn btn-primary mr-0 ml-auto d-block">Post</button>
-        </form>
-        <hr>
-        <form action="{% url 'editalerts' %}" method="post">
-            <h3><b>Edit Alerts</b></h3>
-            {% csrf_token %}
-            <input type="hidden" name="count" value="{{alerts.count}}">
-            {% for x in alerts reversed %}
-            <div class="p-2">
-                <label><b>Alert Message {{forloop.counter}}</b> </label>
-                <input type="hidden" name="id-{{forloop.counter}}" value="{{x.id}}">
-                <textarea name="alert-{{forloop.counter}}" class="form-control mb-2">{{x.alert}}</textarea>
-                <label>Alert type</label>
-                <select name="color-{{forloop.counter}}" class="form-control">
-                    <option value="success" {% if x.color == 'success' %} selected {% endif %} >Green</option>
-                    <option value="primary" {% if x.color == 'primary' %} selected {% endif %} >Blue</option>
-                    <option value="warning" {% if x.color == 'warning' %} selected {% endif %} >Yellow</option>
-                    <option value="danger" {% if x.color == 'danger' %} selected {% endif %} >Red</option>
-                </select>
-            </div>
-            {% endfor %}
-            <button class="mt-2 btn btn-primary float-right">Update</button>
-        </form>
-    </div>
+        </div>
+    </form>
+    <hr>
+    <form action="{% url 'editalerts' %}" method="post">
+        <h3><b>Edit Alerts</b></h3>
+        {% csrf_token %}
+        <input type="hidden" name="count" value="{{alerts.count}}">
+        {% for x in alerts reversed %}
+        <div class="p-2">
+            <label>Alert Message {{forloop.counter}}</label>
+            <input type="hidden" name="id-{{forloop.counter}}" value="{{x.id}}">
+            <textarea name="alert-{{forloop.counter}}" class="form-control mb-2">{{x.alert}}</textarea>
+            <label>Alert type</label>
+            <select name="color-{{forloop.counter}}" class="form-control">
+                <option value="success" {% if x.color == 'success' %} selected {% endif %}>Green</option>
+                <option value="primary" {% if x.color == 'primary' %} selected {% endif %}>Blue</option>
+                <option value="warning" {% if x.color == 'warning' %} selected {% endif %}>Yellow</option>
+                <option value="danger" {% if x.color == 'danger' %} selected {% endif %}>Red</option>
+            </select>
+        </div>
+        {% endfor %}
+        <button class="mt-2 btn btn-primary float-right">Update</button>
+    </form>
+</div>
 
 {% endblock content %}

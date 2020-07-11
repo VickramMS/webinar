@@ -1,176 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Certificate</title>
-
-        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-        <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
-        <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <title>Certificate - {{obj.name}}</title>
         <style>
+            @page {
+                size: A4 landscape;
+                background-image: url("https://i.imgur.com/iB28JeO.jpg");
+
+                @frame footer_frame {
+                    /* Another static Frame */
+                    -pdf-frame-content: footer_content;
+                    margin-left: 7.2cm;
+                    width: 297mm;
+                    padding-top: 17cm;
+                    font-size: 18px;
+
+                }
+            }
+
             .content {
-                position: absolute;
-                text-align: center;
-                font-size: 32px;
-                width: 100%;
-                font-family: Oswald, sans-serif;
-            }
-
-            .par {
-                padding: 35% 15% 0% 15%;
+                margin-left: 7.2cm;
+                padding-top: 10.2cm;
+                padding-left: 3cm;
+                padding-right: 3cm;
                 text-align: justify;
-                font-family: Oswald, sans-serif;
-
-            }
-
-            .id {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                font-size: 26px;
-                margin-top: 54.7%;
-                color: #0036aa;
-                font-family: Oswald, sans-serif;
-                margin-left: -0.5%;
-            }
-
-            .d-none {
-                display: none;
+                font-size: 20px;
+                font-weight: 300;
             }
         </style>
-        <script type="text/javascript">
-            $(window).on('load resize', function () {
-                if ($(window).width() > 600) {
-                    document.getElementById("content").classList.add("content")
-                    document.getElementById("par").classList.add("par")
-                    document.getElementById("id").classList.add("id")
-                } else {
-                    document.getElementById("flex").innerHTML =
-                        "Oops! You might require a Desktop/Laptop to download your certificate. "
-                }
-            });
-        </script>
     </head>
 
-    <body id="flex">
-        <div>
-            <h2>Your Certificate can be downloaded here</h2>
-            email: <span id="copy">{{attendee.email}}</span> <br>
-            <span><b>Step 1:</b></span><br>
-            <label>Select your salutation:</label>
-            <input type="radio" onclick="fun(1)" name="salt" id="salt-1" value="Dr."><span>Dr.</span>
-            <input type="radio" onclick="fun(2)" name="salt" id="salt-2" value="Mr."><span>Mr.</span>
-            <input type="radio" onclick="fun(3)" name="salt" id="salt-3" value="Ms."><span>Ms.</span>
-            <br><br>
-            <span><b>Step 2:</b></span><br>
-            <label>Check for any discrepancies. If you experience any misalignment or error in the Certificate,<br>
-                please let us know through our telegram support. We will contact you shortly</label>
-            <br><br>
-            <span><b>Step 3:</b></span><br>
-            <label>Click the <b>generate Certificate</b> button and your Certificate will be rendered as image. Right
-                click and save the image to your pc. However,
-                we will be sending you a High Resolution Certificate to your mail later.</label>
-            <br><br>
-            <button onclick="gen()">generate Certificate</button>
-            <br>
-            <br>
-        </div>
-        <div id="here"></div>
-        <div id="area">
-            {% if certificate == 'ry6qw2' %}
-            <div id="content">
-                <div id="par">
-                    This is to certify that <span style="color: #0036aa"><b><a id="dr">Dr.</a><a id="mr">Mr.</a><a
-                                id="ms">Ms.</a>
-                            {{attendee}}</b>,
-                        {% if attendee.stufac == 'Student' %}
-                        {{attendee.year|cut:"Year"}} {{attendee.dept}}
-                        of {{attendee.college}},</span>
-                    {% elif attendee.stufac == 'Faculty' %}
-                    {{attendee.desg|title}}, {{attendee.dept}}, {{attendee.college}},</span>
+    <body>
+        <div class="content">
+            {% if obj.stufac == 'Student' %}
+            <p>This is to certify that<b>
+                    {% if obj.gender == 'Male' %}
+                    Mr.
+                    {% elif gender == 'Female' %}
+                    Ms.
                     {% endif %}
-                    has participated in the two-day webinar on <b>"AI -
-                        Prediction Machines"</b> held on 22nd & 23rd June, 2020,<span style="color: #0036aa"> through
-                        online mode.</span>
-                </div>
-            </div>
-            <span id="id">Unique ID: {{certificate}}/{{attendee.uqno}}</span>
-            
-            <img id="img" width="100%" src="https://imagizer.imageshack.com/img923/6146/nGqjO6.jpg">
-
-            {% elif certificate == 'v6weg3' %}
-            <div id="content">
-                <div id="par">
-                    This is to certify that <span style="color: #0036aa"><b><a id="dr">Dr.</a><a id="mr">Mr.</a><a
-                                id="ms">Ms.</a>
-                            {{attendee}}</b>,
-                        {% if attendee.stufac == 'Student' %}
-                        {{attendee.year|cut:"Year"}} {{attendee.dept}}
-                        of {{attendee.college}},</span>
-                    {% elif attendee.stufac == 'Faculty' %}
-                    {{attendee.desg|title}}, {{attendee.dept}}, {{attendee.college}},</span>
-                    {% endif %}
-                    has participated in the one-day webinar on <b>"A complete vision to IEEE organisational structure
-                        and its benifits"</b> held on 24th June, 2020, <span style="color: #0036aa">through online
-                        mode.</span>
-                </div>
-            </div>
+                    {{obj.name}}</b>, {{obj.year}}, {{obj.dept}} of {{obj.college}} has actively
+                participated in the webinar on <b>"5G Technology Uses and UE Hazards"</b> organized by the Industry
+                Institution Interaction Cell of GCE - BODI on 20th July, 2020 <span
+                    style="color: rgb(0, 81, 255);">through online mode</span>
             </p>
-            <span class="id">Unique ID: {{certificate}}/{{attendee.uqno}} </span>
-            <img id="img" width="100%" src="https://imagizer.imageshack.com/img922/3101/Y3xx9N.jpg">
-
-
+            {% else %}
+            <p>This is to certify that<b>
+                    {% if obj.gender == 'Male' %}
+                    Mr.
+                    {% elif gender == 'Female' %}
+                    Ms.
+                    {% endif %}
+                    {{obj.name}}</b>, {{obj.desg}}, {{obj.college}} has actively
+                participated in the webinar on <b>"5G Technology Uses and UE Hazards"</b> organized by the Industry
+                Institution Interaction Cell of GCE - BODI on 20th July, 2020 <span
+                    style="color: rgb(0, 81, 255);">through online mode</span>
+            </p>
             {% endif %}
-
-
-
         </div>
-        <script>
-            function gen(val) {
-                html2canvas(document.querySelector("#area"), {
-                    scale: 5,
-                    scrollX: 0,
-                    scrollY: -window.scrollY,
-                    allowTaint: true,
-                }).then(canvas => {
-                    document.getElementById("area").innerHTML = ""
-                    document.getElementById("here").appendChild(canvas);
-                });
-                $("canvas").attr("download", "{{attendee.email}}.png")
-                
-                var copyText = document.getElementById("copy");
-                copyText.select();
-                copyText.setSelectionRange(0, 99999);
-                document.execCommand("copy");
-            }
-            document.getElementById("dr").classList.add("d-none")
-            document.getElementById("mr").classList.add("d-none")
-            document.getElementById("ms").classList.add("d-none")
-
-            function fun(x) {
-                if (x == 1) {
-                    document.getElementById("dr").classList.remove("d-none")
-                    document.getElementById("mr").classList.add("d-none")
-                    document.getElementById("ms").classList.add("d-none")
-                }
-                if (x == 2) {
-                    document.getElementById("dr").classList.add("d-none")
-                    document.getElementById("mr").classList.remove("d-none")
-                    document.getElementById("ms").classList.add("d-none")
-                }
-                if (x == 3) {
-                    document.getElementById("dr").classList.add("d-none")
-                    document.getElementById("mr").classList.add("d-none")
-                    document.getElementById("ms").classList.remove("d-none")
-                }
-            }
-
-            function copy() {
-            }
-        </script>
+        <div class="footer_frame"></div>
+        <div id="footer_content" style="text-align: center; font-size: 16px;">Unique ID: 4r38fu/{{obj.uqno}}</div>
     </body>
 
 </html>

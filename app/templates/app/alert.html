@@ -27,7 +27,7 @@
         </h3>
         <hr>
         {% for x in schedules %}
-        <label>{{x}}</label><br> <span class="float-right"><a href="{% url 'massmail' pk=x.id %}">Mass mail</a></span>
+        <label>{{x}}</label><br> {% if request.user.is_admin %} <span class="float-right"><a href="{% url 'massmail' pk=x.id %}">Mass mail</a></span>{% endif %}
         <a href="{{x.link}}">{{x.link}}</a><br><br>
         {% empty %}
         No meetings right now

@@ -180,7 +180,7 @@ def feedback(request):
             messages.warning(request, 'It seems you have entered an email id that has not been registered. Please contact the support.')
     return render(request, 'app/feedback.html')
 
-@login_required
+
 def feedbackview(request):
     context = {
         "feedback": Feedback.objects.filter(webinar='5G Technology Uses and UE Hazards'),

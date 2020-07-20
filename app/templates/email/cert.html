@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Confirmation</title>
+        <style>
+            .container {
+                box-shadow: rgb(185, 185, 185) 0px 0px 10px;
+                border-radius: 3px;
+                width: 100%;
+                z-index: 1;
+            }
+
+            .nav {
+                background-color: rgb(0, 102, 255);
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                color: white;
+                padding: 16px;
+                text-align: center;
+                z-index: 0;
+                font-size: larger;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            .button {
+                background-color: rgba(255, 255, 255, 0);
+                border: none;
+                outline: none;
+                padding: 12px;
+                border-radius: 3px;
+                color: black;
+                box-shadow: grey 0px 0px 5px;
+                text-decoration: none;
+
+            }
+
+            .green {
+                background-color: rgb(3, 160, 3);
+                color: white;
+            }
+
+            .blue {
+                background-color: rgb(0, 102, 255);
+                color: white;
+            }
+
+            th {
+                text-align: left;
+            }
+
+            .space {
+                width: 30px;
+                text-align: center;
+            }
+            a:hover{
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body style="padding: 10px;">
+        <div class="container">
+            <div class="nav">
+                GCE - BODI
+            </div>
+            <div class="content">
+                    Hi {{obj.name}}, <br><br>
+                    Thank you for participating in the webinar on <b>5G Technology Uses and UE Hazards</b>. Click the below button to get your certificates.
+                    If you face any issues or want a correction in your certificate please file a query in <a href="http://gcebodi.herokuapp.com/contact">contact page</a> or brief it with a reply to this mail.
+                    <br><br>
+                    <a href="http://gcebodi.herokuapp.com/certificate/{{obj.uqno}}" style="color: white;" class="button blue">Get Certificate</a><br><br>
+                    <hr>
+                    Warm Regards,<br>
+                    Organizing Team,<br>
+                    Industry Institution Interactive Cell,<br>
+                    Government College of Engineering,<br>
+                    Bodinayakkanur - 625582<br>
+            </div>
+        </div>
+    </body>
+
+</html>

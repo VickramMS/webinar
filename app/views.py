@@ -166,7 +166,7 @@ def feedback(request):
                         'Certificate - GCE Bodi',
                         'Link to your certificate',
                         settings.EMAIL_HOST_USER,
-                        [feedback.user.email],
+                        [str(user.email)],
                         fail_silently=False,
                         html_message=html_message
                     )

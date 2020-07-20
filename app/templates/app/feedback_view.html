@@ -35,7 +35,7 @@
                         <td id="2-4">0</td>
                     </tr>
                     <tr>
-                        <th scope="row">Platform (here Cisco Webex)</th>
+                        <th scope="row">Platform (here Microsoft Teams)</th>
                         <td id="3-1">0</td>
                         <td id="3-2">0</td>
                         <td id="3-3">0</td>
@@ -93,8 +93,10 @@
             <h5 for="feedback-1">5G Technology Uses and UE Hazards</h5>
             <hr>
             {% for x in feedback %}
+            {% if x.feedback != '' %}
             <span><b>{{x|safe}}</b> says,</span><br>
-            <p>{{x.feedback|safe}}</p>
+            <p>{{x.feedback|safe}}</p>              
+            {% endif %}
             {% endfor %}
         </div>
     </div>

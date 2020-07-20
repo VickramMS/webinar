@@ -20,5 +20,4 @@ urlpatterns = [
     path('certificate/<pk>/', views.GenerateCertificate.as_view(), name="certificate"),
     path('ygfu36t63uyg4/report/', views.GenerateReport.as_view(), name="report"),
     path('alerts/massmail/<pk>/', views.masssendlink, name="massmail"),
-    path('test/', views.feedback, name="test")
 ]

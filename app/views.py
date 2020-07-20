@@ -161,7 +161,7 @@ def feedback(request):
                     feedback.qs6 = request.POST.get("qs-6")
                     feedback.feedback = request.POST.get("feedback")
                     feedback.save()
-                    html_message = loader.render_to_string('email/cert.html', content)
+                    html_message = loader.render_to_string('email/cert.html', {"obj": user})
                     send_mail(
                         'Certificate - GCE Bodi',
                         'Link to your certificate',

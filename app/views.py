@@ -183,13 +183,13 @@ def feedback(request):
 
 def feedbackview(request):
     context = {
-        "feedback": Feedback.objects.filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs1": Feedback.objects.values_list('qs1', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs2": Feedback.objects.values_list('qs2', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs3": Feedback.objects.values_list('qs3', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs4": Feedback.objects.values_list('qs4', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs5": Feedback.objects.values_list('qs5', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
-        "qs6": Feedback.objects.values_list('qs6', flat=True).filter(webinar='5G Technology Uses and UE Hazards'),
+        "feedback": Feedback.objects.filter(webinar='Modern Application Development in AWS'),
+        "qs1": Feedback.objects.values_list('qs1', flat=True).filter(webinar='Modern Application Development in AWS'),
+        "qs2": Feedback.objects.values_list('qs2', flat=True).filter(webinar='Modern Application Development in AWS'),
+        "qs3": Feedback.objects.values_list('qs3', flat=True).filter(webinar='Modern Application Development in AWS'),
+        "qs4": Feedback.objects.values_list('qs4', flat=True).filter(webinar='Modern Application Development in AWS'),
+        "qs5": Feedback.objects.values_list('qs5', flat=True).filter(webinar='Modern Application Development in AWS'),
+        "qs6": Feedback.objects.values_list('qs6', flat=True).filter(webinar='Modern Application Development in AWS'),
     }
     return render(request, 'app/feedback_view.html', context)
 
@@ -267,7 +267,7 @@ def masssendlink(request, pk):
     for attendee in Attendee.objects.all():
         data.append((
             'GCE BODI - Webinar',
-            'Hi %s,\nGreetings from the Institute Industry Interaction Cell, Government College of Engineering, Bodinayakkanur. We are so glad that you have registered for the webinar on 5G Technology and UE Hazards. Here are the details of the webinars that you have enrolled.\n\n5G Technology and UE Hazards | 20th July, 2020 10.00 IST\n      On Microsoft Teams\n            - App must be installed for mobile. (https://play.google.com/store/apps/details?id=com.microsoft.teams&hl=en_IN).\n            - Desktops don’t need application to be installed.\n            - Join the session using the below link.\n                    I.For Desktop users\n                         1.Click the link\n                         2.Choose Continue in this browser\n                         3.Allow Camera and Microphone\n                         4.Enter you Name and keep your camera and mic muted\n                         5.Click Join now\n                    II.For Mobile users (App must be installed)\n                         1.Click the link\n                         2.Click Join as a guest\n                         3.Enter your name\n                         4.Click Join\n            - Link to the session will also be available in the gcebodi.herokuapp.com/alerts page.\n            - Participants are advised to join the session earlier around 9.45am IST.\n\nLink to the Meeting  :  %s\n\nWarm Regards,\nOrganizing Team,\nInsitution Industry Interactive Cell,\nGovernment College of Engineering,\nBodinayakanur - 625582\n' %(attendee.name, obj.link),
+            'Hi %s,\nGreetings from the Institute Industry Interaction Cell, Government College of Engineering, Bodinayakkanur. We are so glad that you have registered for the webinar on 5G Technology and UE Hazards. Here are the details of the webinars that you have enrolled.\n\n5G Technology and UE Hazards | 29th July, 2020 10.00 IST\n      On Microsoft Teams\n            - App must be installed for mobile. (https://play.google.com/store/apps/details?id=com.microsoft.teams&hl=en_IN).\n            - Desktops don’t need application to be installed.\n            - Join the session using the below link.\n                    I.For Desktop users\n                         1.Click the link\n                         2.Choose Continue in this browser\n                         3.Allow Camera and Microphone\n                         4.Enter you Name and keep your camera and mic muted\n                         5.Click Join now\n                    II.For Mobile users (App must be installed)\n                         1.Click the link\n                         2.Click Join as a guest\n                         3.Enter your name\n                         4.Click Join\n            - Link to the session will also be available in the gcebodi.herokuapp.com/alerts page.\n            - Participants are advised to join the session earlier around 9.45am IST.\n\nLink to the Meeting  :  %s\n\nWarm Regards,\nOrganizing Team,\nInsitution Industry Interactive Cell,\nGovernment College of Engineering,\nBodinayakanur - 625582\n' %(attendee.name, obj.link),
             settings.EMAIL_HOST_USER,
             [str(attendee.email)],
         ))

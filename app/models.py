@@ -20,6 +20,7 @@ class Attendee(models.Model):
     gender = models.CharField(max_length=25, choices=GENDER)
 
 
+
     def __str__(self):
         return self.name
     

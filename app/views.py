@@ -167,7 +167,7 @@ def feedback(request):
                         'Link to your certificate',
                         settings.EMAIL_HOST_USER,
                         [str(user.email)],
-                        fail_silently=False,
+                        fail_silently=True,
                         html_message=html_message
                     )
                     messages.success(request, 'Your feedback has been submited')
@@ -273,7 +273,7 @@ def masssendlink(request, pk):
         ))
     send_mass_mail(
         tuple(data),
-        fail_silently=False
+        fail_silently=True
     )
     messages.success(request, 'Mass mail has been sent successfully!')
     return redirect('alerts')
